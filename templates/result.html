@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+</head>
+
+<body style="background:#111;color:white;text-align:center">
+
+<h1>Risk Result</h1>
+
+<canvas id="gauge" width="300" height="150"></canvas>
+
+<h2>{{ result }}</h2>
+
+<h3>Recommendations</h3>
+<ul>
+    {% for tip in tips %}
+    <li>{{ tip }}</li>
+    {% endfor %}
+</ul>
+
+<script>
+const canvas = document.getElementById("gauge");
+const ctx = canvas.getContext("2d");
+
+function drawGauge(value){
+    ctx.clearRect(0,0,300,150);
+
+    let angle = (value/100)*Math.PI;
+
+    ctx.beginPath();
+    ctx.arc(150,150,100,Math.PI,Math.PI+angle);
+    ctx.strokeStyle="lime";
+    ctx.lineWidth=15;
+    ctx.stroke();
+
+    ctx.fillStyle="white";
+    ctx.font="20px Arial";
+    ctx.fillText(value+"%",120,120);
+}
+
+let val = {{ score }};
+drawGauge(val);
+</script>
+
+</body>
+</html>
