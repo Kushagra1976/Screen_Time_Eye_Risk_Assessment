@@ -4,16 +4,14 @@ import pandas as pd
 import joblib
 import os
 os.environ["TF_USE_LEGACY_KERAS"] = "1"
-from tf_keras.models import load_model
-
-app = Flask(__name__)
-app.secret_key = "secret123"
+import tensorflow as tf
 
 # ---------------- LOAD MODELS ----------------
 rf_model = joblib.load("model.pkl")
 scaler = joblib.load("scaler.pkl")
-bigru_model = load_model("feature_extractor.h5")
-
+bigru_model = tf.keras.models.load_model("feature_extractor.h5", compile=False)
+app = Flask(__name__)
+app.secret_key = "secret123"
 # ---------------- LOGIN ----------------
 @app.route("/")
 def home():
