@@ -2,7 +2,9 @@ from flask import Flask, render_template, request, redirect, session
 import numpy as np
 import pandas as pd
 import joblib
-from tensorflow.keras.models import load_model
+import os
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+from tf_keras.models import load_model
 
 app = Flask(__name__)
 app.secret_key = "secret123"
